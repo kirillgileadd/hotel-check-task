@@ -3,6 +3,12 @@ import {Box, Paper, TextField, Typography} from "@mui/material";
 import styled from "@emotion/styled";
 import backgroundImg from '../assets/images/authBg.png'
 import {CustomButton} from "../UI/CustomButton";
+import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate, Navigate} from 'react-router-dom'
+import {AuthActionCreators} from "../store/action-creators/auth";
+import {RouteName} from "../routes";
+import {useTypeSelector} from "../hooks/useTypeSelector";
+import {useActions} from "../hooks/useActions";
 
 const AuthBackground = styled(Box)`
   width: 100vw;
@@ -15,9 +21,14 @@ const AuthBackground = styled(Box)`
   align-items: center;
 `
 
-
-
 const Auth: FC = () => {
+    const {isAuth} = useTypeSelector(state => state.auth)
+    const {loginAction} = useActions()
+
+    if (isAuth) {
+        return <Navigate to={RouteName.HOME}/>
+    }
+
     return (
         <AuthBackground>
             <Paper sx={{p: '32px'}}>
@@ -26,7 +37,7 @@ const Auth: FC = () => {
                 </Typography>
                 <Box
                     sx={{
-                        '& .MuiTextField-root': { mb: "32px" },
+                        '& .MuiTextField-root': {mb: "32px"},
                     }}
                     component='form'
                 >
@@ -41,6 +52,7 @@ const Auth: FC = () => {
                         label="Пароль"
                     />
                     <CustomButton
+                        onClick={() => loginAction({username: 'user', password: '123'})}
                         variant='contained'
                         fullWidth
                         type='button'
