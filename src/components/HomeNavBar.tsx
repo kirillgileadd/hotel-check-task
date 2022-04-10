@@ -13,7 +13,7 @@ const HomeNavBar:FC = () => {
             <Box
                 display='flex'
                 alignItems='center'
-                sx={{ml: 'auto'}}
+                sx={{ml: 'auto', cursor: "pointer"}}
                 onClick={logoutAction}
             >
                 <Typography sx={{mr: '12px'}}>

@@ -17,7 +17,7 @@ function* login(action: LoginAction) {
             yield put(AuthActionCreators.setUser( {email: email, password: password}))
             yield put(AuthActionCreators.setIsAuth(true))
         } else {
-            yield put(AuthActionCreators.setError('Не правильный логин или пароль!'))
+            yield put(AuthActionCreators.setError('Неправильный логин или пароль!'))
         }
         yield put(AuthActionCreators.setIsLoading(false))
     } catch (err) {
