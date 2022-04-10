@@ -8,7 +8,7 @@ function App() {
 
     useEffect(() => {
         if (localStorage.getItem('auth')) {
-            setUser({username: localStorage.getItem('username' ?? '')} as IUser)
+            setUser({email: localStorage.getItem('email' ?? '')} as IUser)
             setIsAuth(true)
         }
     }, [])

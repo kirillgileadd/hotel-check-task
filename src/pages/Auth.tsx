@@ -1,14 +1,12 @@
 import React, {FC} from 'react';
-import {Box, Paper, TextField, Typography} from "@mui/material";
+import {Box, Paper, Typography} from "@mui/material";
 import styled from "@emotion/styled";
 import backgroundImg from '../assets/images/authBg.png'
-import {CustomButton} from "../UI/CustomButton";
-import {useDispatch, useSelector} from "react-redux";
-import {Link, useNavigate, Navigate} from 'react-router-dom'
-import {AuthActionCreators} from "../store/action-creators/auth";
+import {Navigate} from 'react-router-dom'
 import {RouteName} from "../routes";
 import {useTypeSelector} from "../hooks/useTypeSelector";
 import {useActions} from "../hooks/useActions";
+import AuthForm from "../components/AuthForm";
 
 const AuthBackground = styled(Box)`
   width: 100vw;
@@ -35,31 +33,7 @@ const Auth: FC = () => {
                 <Typography sx={{mb: '32px'}} textAlign='center' variant='h5' fontWeight='bold'>
                     Simple Hotel Check
                 </Typography>
-                <Box
-                    sx={{
-                        '& .MuiTextField-root': {mb: "32px"},
-                    }}
-                    component='form'
-                >
-                    <TextField
-                        fullWidth
-                        id="standard-search"
-                        label="Логин"
-                    />
-                    <TextField
-                        fullWidth
-                        id="standard-search"
-                        label="Пароль"
-                    />
-                    <CustomButton
-                        onClick={() => loginAction({username: 'user', password: '123'})}
-                        variant='contained'
-                        fullWidth
-                        type='button'
-                    >
-                        Войти
-                    </CustomButton>
-                </Box>
+                <AuthForm loginAction={loginAction}/>
             </Paper>
         </AuthBackground>
     );

@@ -6,22 +6,22 @@ import {IUser} from "../types/IUser";
 
 function* fetchUserWorker(action: LoginAction) {
     try {
-        const {payload: {username, password}} = action
+        const {payload: {email, password}} = action
         yield put(AuthActionCreators.setIsLoading(true))
         // @ts-ignore
         const response = yield call(UserService.getUsers)
-        const mockUser = response.data.find((user: IUser) => user.username === username && user.password === password)
+        const mockUser = response.data.find((user: IUser) => user.email === email && user.password === password)
         if(mockUser) {
             localStorage.setItem('auth', 'true')
-            localStorage.setItem('username', 'user');
-            yield put(AuthActionCreators.setUser( {username: username, password: password}))
+            localStorage.setItem('email', email);
+            yield put(AuthActionCreators.setUser( {email: email, password: password}))
             yield put(AuthActionCreators.setIsAuth(true))
         } else {
             yield put(AuthActionCreators.setError('Не правильный логин или пароль!'))
         }
         yield put(AuthActionCreators.setIsLoading(false))
     } catch (err) {
-        yield put(AuthActionCreators.setError('somithing error'))
+        yield put(AuthActionCreators.setError('something error'))
     }
 }
 
