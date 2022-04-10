@@ -1,6 +1,8 @@
 import {IUser} from "../../types/IUser";
 import {
     AuthActionEnum,
+    LoginAction,
+    LogoutAction,
     SetAuthAction,
     SetErrorAction,
     SetIsLoadingAction,
@@ -8,7 +10,8 @@ import {
 } from "../reducers/auth/types";
 
 export const AuthActionCreators = {
-    loginAction: (user: IUser) => ({type: AuthActionEnum.LOGIN, payload: user}),
+    loginAction: (user: IUser): LoginAction => ({type: AuthActionEnum.LOGIN, payload: user}),
+    logoutAction: (): LogoutAction => ({type: AuthActionEnum.LOGOUT}),
     setUser: (user: IUser): SetUserAction => ({type: AuthActionEnum.SET_USER, payload: user}),
     setIsAuth: (auth: boolean): SetAuthAction => ({type: AuthActionEnum.SET_AUTH, payload: auth}),
     setIsLoading: (payload: boolean): SetIsLoadingAction => ({type: AuthActionEnum.SET_IS_LOADING, payload}),

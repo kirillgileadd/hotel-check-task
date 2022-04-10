@@ -12,7 +12,8 @@ export enum AuthActionEnum {
     SET_ERROR = "SET_ERROR",
     SET_USER = "SET_USER",
     SET_IS_LOADING = "SET_IS_LOADING",
-    LOGIN = 'LOGIN'
+    LOGIN = 'LOGIN',
+    LOGOUT = "LOGOUT"
 }
 
 export interface SetAuthAction {
@@ -37,9 +38,14 @@ export interface LoginAction {
     payload: IUser
 }
 
+export interface LogoutAction {
+    type: AuthActionEnum.LOGOUT,
+}
+
 export type AuthAction =
     SetAuthAction |
     SetUserAction |
     SetErrorAction |
     LoginAction |
+    LogoutAction |
     SetIsLoadingAction

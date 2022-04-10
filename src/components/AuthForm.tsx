@@ -10,9 +10,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 
 const HelpText = styled(Typography)(({theme}) => ({
     color: theme.palette.success.main,
-    fontWeight: 500,
     marginLeft: "5px"
-
 }))
 
 interface AuthFormProps {
@@ -48,7 +46,7 @@ const AuthForm: FC<AuthFormProps> = ({loginAction}) => {
     return (
         <Box
             sx={{
-                width: '450px',
+                width: '409px',
                 position: "relative",
                 '& .MuiTypography-root': {mb: "28px"},
             }}

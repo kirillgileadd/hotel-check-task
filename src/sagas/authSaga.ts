@@ -4,7 +4,7 @@ import {AuthActionCreators} from "../store/action-creators/auth";
 import UserService from "../api/UserService";
 import {IUser} from "../types/IUser";
 
-function* fetchUserWorker(action: LoginAction) {
+function* login(action: LoginAction) {
     try {
         const {payload: {email, password}} = action
         yield put(AuthActionCreators.setIsLoading(true))
@@ -25,7 +25,13 @@ function* fetchUserWorker(action: LoginAction) {
     }
 }
 
+function* logout() {
+    localStorage.removeItem('auth')
+    localStorage.removeItem('email')
+}
+
 export function* authWatcher() {
     //@ts-ignore
-    yield takeEvery(AuthActionEnum.LOGIN, fetchUserWorker)
+    yield takeEvery(AuthActionEnum.LOGIN, login)
+    yield takeEvery(AuthActionEnum.LOGOUT, logout)
 }
