@@ -19,7 +19,8 @@ interface HotelListProps {
     location: ILocation;
     stars: number;
     hotelName: string;
-    priceAvg: number
+    priceAvg: number,
+    favorite?: boolean;
 }
 
 const HotelItem: FC<HotelListProps> = ({hotelName,priceAvg,stars}) => {
@@ -27,8 +28,8 @@ const HotelItem: FC<HotelListProps> = ({hotelName,priceAvg,stars}) => {
         <HotelItemWrapper>
             <img src={houseImg} alt=""/>
             <Box display='flex' justifyContent='space-between' sx={{width: "100%"}}>
-                <Box sx={{ml: '24px'}}>
-                    <Typography>
+                <Box sx={{ml: '24px', maxWidth: '380px'}}>
+                    <Typography  noWrap>
                         {hotelName}
                     </Typography>
                     <Typography variant='body2'>

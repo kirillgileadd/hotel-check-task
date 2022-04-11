@@ -11,30 +11,28 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 import {useActions} from "../hooks/useActions";
 
-interface SearchFormProps {
-    loginAction?: (user: IUser) => void;
-}
-
 export interface SearchFormValue {
     location: string;
     date: Date;
     daysQuantity: number;
 }
 
-const schema = yup.object({
-    location: yup.string().required('Введите локацию'),
-    date: yup.string().required('Введите дату'),
-    daysQuantity: yup.number().required()
-});
-
-const HotelForm: FC<SearchFormProps> = ({loginAction}) => {
+const HotelForm: FC<SearchFormValue> = ({date, daysQuantity, location}) => {
     const {fetchHotels} = useActions()
-    const {register, control, handleSubmit, watch, formState: {errors}} = useForm<SearchFormValue>({
+
+    const schema = yup.object({
+        location: yup.string().required('Введите локацию'),
+        date: yup.date().min(date, 'Пожалуйста, выберите предстоящую дату'),
+        daysQuantity: yup.number().max(365, "Количество дней должно быть меньше (макс 365)")
+            .required("Выберете количество дней")
+    });
+
+    const {register, control, handleSubmit, formState: {errors}} = useForm<SearchFormValue>({
         resolver: yupResolver(schema),
         defaultValues: {
-            location: 'Moscow',
-            date: new Date(),
-            daysQuantity: 1
+            location,
+            date,
+            daysQuantity,
         }
     });
 

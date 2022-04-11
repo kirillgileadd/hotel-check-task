@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Box, CircularProgress, styled, Typography} from "@mui/material";
 import ImagesCarousel from "./ImagesCarousel";
 import HotelList from "./HotelList";
@@ -6,6 +6,9 @@ import {CustomPaper} from "../UI/CustomPaper";
 import breadcrumbsArrow from '../assets/images/bradArrow.svg'
 import {useTypeSelector} from "../hooks/useTypeSelector";
 import Loader from "./Loader";
+import {useActions} from "../hooks/useActions";
+import dayjs from "dayjs";
+import {HotelState} from "../store/reducers/hotel/types";
 
 const BreadcrumbsItem = styled(Typography)`
   font-weight: 500;
@@ -49,9 +52,11 @@ const HotelListInner = styled(Box)`
   }
 `
 
-const HotelBlock: FC = () => {
-    const {hotels, isLoading} = useTypeSelector(state => state.hotel)
+interface HotelBlockProps {
+    hotelState: HotelState
+}
 
+const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, date, isLoading, location, daysQuantity}}) => {
     return (
         <CustomPaper>
             <Box

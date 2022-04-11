@@ -16,7 +16,8 @@ function* fetchHotels(value: FetchHotelsAction) {
         //@ts-ignore
         const response = yield call(
             axios,
-            `http://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
+            `http://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&&language=ru&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
+        console.log(response);
         yield put(HotelActionCreators.fetchHotelsSuccess(response.data))
     } catch (e) {
         yield put(HotelActionCreators.fetchHotelsError("Something Error"))
