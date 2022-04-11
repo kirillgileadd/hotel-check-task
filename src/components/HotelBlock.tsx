@@ -4,6 +4,7 @@ import ImagesCarousel from "./ImagesCarousel";
 import HotelList from "./HotelList";
 import {CustomPaper} from "../UI/CustomPaper";
 import breadcrumbsArrow from '../assets/images/bradArrow.svg'
+import {useTypeSelector} from "../hooks/useTypeSelector";
 
 const BreadcrumbsItem = styled(Typography)`
   font-weight: 500;
@@ -29,7 +30,24 @@ const BreadcrumbsItem = styled(Typography)`
   }
 `
 
+const HotelListInner = styled(Box)`
+  height: calc(100vh - 430px); 
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 2px;
+  } 
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #41522E;
+  } 
+  &::-webkit-scrollbar-track {
+    background-color: #E7E7E7;
+  }
+`
+
 const HotelBlock: FC = () => {
+    const {hotels} = useTypeSelector(state => state.hotel)
+
     return (
         <CustomPaper>
             <Box
@@ -46,17 +64,19 @@ const HotelBlock: FC = () => {
                         Москва
                     </BreadcrumbsItem>
                 </Box>
-                <Typography fontSize='24px' lineHeight='28px'>
+                <Typography fontSize='24px' lineHeight='28px' >
                     07 июля 2020
                 </Typography>
             </Box>
             <Box sx={{mb: '28px'}}>
                 <ImagesCarousel/>
             </Box>
-            <Typography>
+            <Typography sx={{mb: "12px"}}>
                 Добавлено в Избранное: <strong>3</strong> отеля
             </Typography>
-            <HotelList/>
+            <HotelListInner>
+                <HotelList hotels={hotels}/>
+            </HotelListInner>
         </CustomPaper>
     );
 };

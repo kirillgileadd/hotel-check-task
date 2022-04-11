@@ -1,10 +1,19 @@
 import React, {FC} from 'react';
+import HotelItem from "./HotelItem";
+import {IHotel} from "../types/IHotel";
+import {Box} from "@mui/material";
 
-const HotelList:FC = () => {
+interface HotelListProps {
+    hotels: IHotel[]
+}
+
+const HotelList:FC<HotelListProps> = ({hotels}) => {
     return (
-        <div>
-            HotelList
-        </div>
+        <Box>
+            {hotels.map(hotel =>
+                <HotelItem key={hotel.hotelId} {...hotel}/>
+            )}
+        </Box>
     );
 };
 

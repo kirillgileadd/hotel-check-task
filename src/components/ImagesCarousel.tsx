@@ -15,8 +15,7 @@ const ImagesCarousel:FC = () => {
     return (
         <>
             <Swiper
-                slidesPerView={3.5}
-                spaceBetween={12}
+                slidesPerView={3.65}
                 freeMode={true}
                 pagination={{
                     clickable: true,
@@ -27,7 +26,7 @@ const ImagesCarousel:FC = () => {
                 {
                     carousel.map((img) =>
                     <SwiperSlide key={img.id}>
-                        <img src={img.src} alt=""/>
+                        <img style={{width: '164px', height: '149px'}} src={img.src} alt=""/>
                     </SwiperSlide>
                     )
                 }
