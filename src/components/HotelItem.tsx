@@ -2,7 +2,9 @@ import React, {FC} from 'react';
 import {Box, Rating, styled, Typography} from "@mui/material";
 import houseImg from '../assets/images/hotelItemSvg.svg'
 import heart from '../assets/images/HeartVector.svg'
-import {IHotel, ILocation} from "../types/IHotel";
+import {ILocation} from "../types/IHotel";
+import {useTypeSelector} from "../hooks/useTypeSelector";
+import {useDate} from "../hooks/useDate";
 
 
 const HotelItemWrapper = styled(Box)`
@@ -24,6 +26,9 @@ interface HotelListProps {
 }
 
 const HotelItem: FC<HotelListProps> = ({hotelName,priceAvg,stars}) => {
+    const {date, daysQuantity} = useTypeSelector(state => state.hotel)
+    const [currentDate, currentDaysQuantity] = useDate(date, daysQuantity )
+
     return (
         <HotelItemWrapper>
             <img src={houseImg} alt=""/>
@@ -33,7 +38,7 @@ const HotelItem: FC<HotelListProps> = ({hotelName,priceAvg,stars}) => {
                         {hotelName}
                     </Typography>
                     <Typography variant='body2'>
-                        7 июля 2020 - 1 день
+                        {currentDate} - {currentDaysQuantity}
                     </Typography>
                     <Rating name="read-only" defaultValue={stars} readOnly/>
                 </Box>

@@ -7,6 +7,7 @@ import HotelForm from "../components/HotelForm";
 import {useActions} from "../hooks/useActions";
 import {useTypeSelector} from "../hooks/useTypeSelector";
 import FavoritesBlock from "../components/FavoritesBlock";
+import {useDate} from "../hooks/useDate";
 
 const HomeWrapper = styled(Box)`
   background-color: #f4f4f4;
@@ -24,8 +25,7 @@ const Home: FC = () => {
     const hotelState = useTypeSelector(state => state.hotel)
     const {date, location, daysQuantity} = useTypeSelector(state => state.hotel)
     const {fetchHotels} = useActions()
-    // const currentDate = dayjs(date).format('DD MMMM YYYY')
-    // console.log(currentDate);
+    const [currentDate] = useDate(date, daysQuantity)
 
     useEffect(() => {
         fetchHotels({date, location, daysQuantity})
@@ -47,7 +47,7 @@ const Home: FC = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        <HotelBlock hotelState={hotelState}/>
+                        <HotelBlock currentDate={currentDate} hotelState={hotelState}/>
                     </Grid>
                 </Grid>
             </HomeContainer>

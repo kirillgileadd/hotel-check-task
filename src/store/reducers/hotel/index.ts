@@ -18,7 +18,7 @@ const initialState: HotelState = {
     hotels: [],
     error: '',
     isLoading: false,
-    location: "Moscow",
+    location: "Москва",
     date: new Date(),
     daysQuantity: 1
 }
@@ -36,7 +36,9 @@ export default function hotelReducer(state = initialState, action: HotelAction):
         case HotelActionEnum.FETCH_HOTELS_SUCCESS:
             return {...state, hotels: action.payload, isLoading: false}
         case HotelActionEnum.FETCH_HOTELS_ERROR:
-            return {...state, error: action.payload}
+            return {...state, error: action.payload, isLoading: false}
+        case HotelActionEnum.CLEAR_HOTELS_DATA:
+            return {...state, hotels: [], isLoading: false}
         default:
             return state;
     }

@@ -20,6 +20,7 @@ function* fetchHotels(value: FetchHotelsAction) {
         console.log(response);
         yield put(HotelActionCreators.fetchHotelsSuccess(response.data))
     } catch (e) {
+        yield put(HotelActionCreators.clearHotelsData())
         yield put(HotelActionCreators.fetchHotelsError("Something Error"))
     }
 }

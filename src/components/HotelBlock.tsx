@@ -1,13 +1,10 @@
-import React, {FC, useEffect} from 'react';
-import {Box, CircularProgress, styled, Typography} from "@mui/material";
+import React, {FC} from 'react';
+import {Box, styled, Typography} from "@mui/material";
 import ImagesCarousel from "./ImagesCarousel";
 import HotelList from "./HotelList";
 import {CustomPaper} from "../UI/CustomPaper";
 import breadcrumbsArrow from '../assets/images/bradArrow.svg'
-import {useTypeSelector} from "../hooks/useTypeSelector";
 import Loader from "./Loader";
-import {useActions} from "../hooks/useActions";
-import dayjs from "dayjs";
 import {HotelState} from "../store/reducers/hotel/types";
 
 const BreadcrumbsItem = styled(Typography)`
@@ -53,10 +50,11 @@ const HotelListInner = styled(Box)`
 `
 
 interface HotelBlockProps {
-    hotelState: HotelState
+    hotelState: HotelState;
+    currentDate: string;
 }
 
-const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, date, isLoading, location, daysQuantity}}) => {
+const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, isLoading, location}, currentDate}) => {
     return (
         <CustomPaper>
             <Box
@@ -69,12 +67,12 @@ const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, date, isLoading, 
                     <BreadcrumbsItem variant='h4'>
                         Отели
                     </BreadcrumbsItem>
-                    <BreadcrumbsItem variant='h4'>
-                        Москва
+                    <BreadcrumbsItem variant='h4' sx={{maxWidth: "320px"}} noWrap>
+                        {location}
                     </BreadcrumbsItem>
                 </Box>
                 <Typography fontSize='24px' lineHeight='28px'>
-                    07 июля 2020
+                    {currentDate}
                 </Typography>
             </Box>
             <Box sx={{mb: '28px'}}>
@@ -84,7 +82,7 @@ const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, date, isLoading, 
                 Добавлено в Избранное: <strong>3</strong> отеля
             </Typography>
             <HotelListInner>
-                {isLoading ? <Loader/> : <HotelList hotels={hotels}/>}
+                {isLoading ? <Loader/> : <HotelList isLoading={isLoading} hotels={hotels}/>}
             </HotelListInner>
         </CustomPaper>
     );

@@ -1,5 +1,6 @@
 import {SearchFormValue} from "../../components/HotelForm";
 import {
+    ClearHotelsData,
     FetchHotelsAction,
     FetchHotelsErrorAction,
     FetchHotelsSuccessAction,
@@ -19,5 +20,8 @@ export const HotelActionCreators = {
     fetchHotelsError: (error: string): FetchHotelsErrorAction => ({
         type: HotelActionEnum.FETCH_HOTELS_ERROR,
         payload: error
+    }),
+    clearHotelsData: (): ClearHotelsData => ({
+        type: HotelActionEnum.CLEAR_HOTELS_DATA,
     })
 }
