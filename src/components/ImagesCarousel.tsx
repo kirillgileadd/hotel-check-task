@@ -26,7 +26,7 @@ const ImagesCarousel:FC = () => {
                 {
                     carousel.map((img) =>
                     <SwiperSlide key={img.id}>
-                        <img style={{width: '164px', height: '149px'}} src={img.src} alt=""/>
+                        <img style={{width: '164px', height: '149px', objectFit: 'cover'}} src={img.src} alt=""/>
                     </SwiperSlide>
                     )
                 }

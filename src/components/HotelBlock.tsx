@@ -31,7 +31,7 @@ const BreadcrumbsItem = styled(Typography)`
 `
 
 const HotelListInner = styled(Box)`
-  height: calc(100vh - 430px); 
+  height: calc(100vh - 435px); 
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 2px;

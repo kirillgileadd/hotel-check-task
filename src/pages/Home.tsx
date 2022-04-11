@@ -3,6 +3,7 @@ import HomeNavBar from "../components/HomeNavBar";
 import {Box, Grid, styled} from "@mui/material";
 import {CustomPaper} from "../UI/CustomPaper";
 import HotelBlock from "../components/HotelBlock";
+import HotelForm from "../components/HotelForm";
 
 const HomeWrapper = styled(Box)`
   background-color: #f4f4f4;
@@ -25,7 +26,7 @@ const Home: FC = () => {
                     <Grid item xs={4}>
                         <Grid container spacing={4}>
                             <Grid item xs={12}>
-                                <CustomPaper>Search Form</CustomPaper>
+                               <HotelForm/>
                             </Grid>
                             <Grid item xs={12}>
                                 <CustomPaper>Favorites</CustomPaper>
