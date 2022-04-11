@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
-import {Box, styled, Typography} from "@mui/material";
+import {Box, CircularProgress, styled, Typography} from "@mui/material";
 import ImagesCarousel from "./ImagesCarousel";
 import HotelList from "./HotelList";
 import {CustomPaper} from "../UI/CustomPaper";
 import breadcrumbsArrow from '../assets/images/bradArrow.svg'
 import {useTypeSelector} from "../hooks/useTypeSelector";
+import Loader from "./Loader";
 
 const BreadcrumbsItem = styled(Typography)`
   font-weight: 500;
@@ -31,22 +32,25 @@ const BreadcrumbsItem = styled(Typography)`
 `
 
 const HotelListInner = styled(Box)`
-  height: calc(100vh - 435px); 
+  height: calc(100vh - 435px);
   overflow-y: auto;
+
   &::-webkit-scrollbar {
     width: 2px;
-  } 
+  }
+
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #41522E;
-  } 
+  }
+
   &::-webkit-scrollbar-track {
     background-color: #E7E7E7;
   }
 `
 
 const HotelBlock: FC = () => {
-    const {hotels} = useTypeSelector(state => state.hotel)
+    const {hotels, isLoading} = useTypeSelector(state => state.hotel)
 
     return (
         <CustomPaper>
@@ -64,7 +68,7 @@ const HotelBlock: FC = () => {
                         Москва
                     </BreadcrumbsItem>
                 </Box>
-                <Typography fontSize='24px' lineHeight='28px' >
+                <Typography fontSize='24px' lineHeight='28px'>
                     07 июля 2020
                 </Typography>
             </Box>
@@ -75,7 +79,7 @@ const HotelBlock: FC = () => {
                 Добавлено в Избранное: <strong>3</strong> отеля
             </Typography>
             <HotelListInner>
-                <HotelList hotels={hotels}/>
+                {isLoading ? <Loader/> : <HotelList hotels={hotels}/>}
             </HotelListInner>
         </CustomPaper>
     );

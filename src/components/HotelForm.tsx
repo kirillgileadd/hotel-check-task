@@ -9,6 +9,7 @@ import {CustomPaper} from "../UI/CustomPaper";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
+import {useActions} from "../hooks/useActions";
 
 interface SearchFormProps {
     loginAction?: (user: IUser) => void;
@@ -27,6 +28,7 @@ const schema = yup.object({
 });
 
 const HotelForm: FC<SearchFormProps> = ({loginAction}) => {
+    const {fetchHotels} = useActions()
     const {register, control, handleSubmit, watch, formState: {errors}} = useForm<SearchFormValue>({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -37,8 +39,7 @@ const HotelForm: FC<SearchFormProps> = ({loginAction}) => {
     });
 
     const onSubmit: SubmitHandler<SearchFormValue> = (data) => {
-        console.log(data);
-        // loginAction({email: data.email, password: data.password})
+        fetchHotels(data)
     }
 
     return (

@@ -1,4 +1,4 @@
-import {HotelState} from "./types";
+import {HotelAction, HotelActionEnum, HotelState} from "./types";
 import carouselImage1 from "../../../assets/images/carousel/img1.png";
 import carouselImage2 from "../../../assets/images/carousel/img2.png";
 import carouselImage3 from "../../../assets/images/carousel/img3.png";
@@ -15,18 +15,28 @@ const initialState: HotelState = {
         {src: carouselImage3, id: 7},
         {src: carouselImage4, id: 8},
     ],
-    hotels: [
-        {hotelId: 1, hotelName: 'Best Hotel', location: {name: 'Moscow', country: 'Russia'}, stars: 5, priceAvg: 6000},
-        {hotelId: 2, hotelName: 'Best Hotel1', location: {name: 'Piter', country: 'Russia'}, stars: 5, priceAvg: 3000},
-        {hotelId: 3, hotelName: 'Best Hotel2', location: {name: 'Kaluga', country: 'Russia'}, stars: 4, priceAvg: 7000},
-        {hotelId: 4, hotelName: 'Best Hotel3', location: {name: 'Krim', country: 'Russia'}, stars: 5, priceAvg: 12000},
-    ],
+    hotels: [],
     error: '',
     isLoading: false,
+    location: "Moscow",
+    date: new Date(),
+    daysQuantity: 1
 }
 
-export default function hotelReducer(state = initialState, action: any) {
+export default function hotelReducer(state = initialState, action: HotelAction): HotelState {
     switch (action.type) {
+        case HotelActionEnum.FETCH_HOTELS:
+            return {
+                ...state,
+                isLoading: true,
+                location: action.payload.location,
+                date: action.payload.date,
+                daysQuantity: action.payload.daysQuantity
+            }
+        case HotelActionEnum.FETCH_HOTELS_SUCCESS:
+            return {...state, hotels: action.payload, isLoading: false}
+        case HotelActionEnum.FETCH_HOTELS_ERROR:
+            return {...state, error: action.payload}
         default:
             return state;
     }
