@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {CustomPaper} from "../UI/CustomPaper";
-import {styled, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
+import {Box, styled, ToggleButtonGroup, Typography} from "@mui/material";
+import {CustomToggleButton} from "../UI/CustomToggleButton";
 
 const FavoritesTitle = styled(Typography)`
   font-weight: 500;
@@ -8,24 +9,56 @@ const FavoritesTitle = styled(Typography)`
   line-height: 28px;
 `
 
-const FavoritesButton = styled(ToggleButton )`
-`
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+    '& .MuiToggleButtonGroup-grouped': {
+        backgroundColor: 'transparent',
+        opacity: 0.4,
+        color: "#41522E",
+        '&:hover': {
+            backgroundColor: '#fff',
+        },
+        '&.Mui-selected': {
+            opacity: 1,
+        },
+        '&:not(:first-of-type)': {
+            border: '1px solid #41522E',
+            borderRadius: "4px",
+        },
+        '&:first-of-type': {
+            border: '1px solid #41522E',
+            borderRadius: "4px",
+        },
+    },
+}));
 
 const FavoritesBlock:FC = () => {
+    const [alignment, setAlignment] = React.useState<string | null>('rating');
+
+    const handleChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string | null,
+    ) => {
+        if (newAlignment !== null) {
+            setAlignment(newAlignment);
+        }
+    };
+
     return (
         <CustomPaper>
             <FavoritesTitle variant='h4' mb={'32px'}>
                 Избранное
             </FavoritesTitle>
-            <ToggleButtonGroup
-                color="primary"
-                // value={alignment}
-                exclusive
-                // onChange={handleChange}
-            >
-                <FavoritesButton value={"rating"}>Рейтинг</FavoritesButton>
-                <FavoritesButton value={"price"}>Цена</FavoritesButton>
-            </ToggleButtonGroup>
+            <Box>
+                <StyledToggleButtonGroup
+                    color="primary"
+                    value={alignment}
+                    exclusive
+                    onChange={handleChange}
+                >
+                    <CustomToggleButton sx={{mr: 1}} value={"rating"}>Рейтинг</CustomToggleButton>
+                    <CustomToggleButton value={"price"}>Цена</CustomToggleButton>
+                </StyledToggleButtonGroup>
+            </Box>
         </CustomPaper>
     );
 };

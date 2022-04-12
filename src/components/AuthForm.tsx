@@ -69,6 +69,7 @@ const AuthForm: FC<AuthFormProps> = ({loginAction}) => {
                 id="standard-search"
                 label="Пароль"
                 name='password'
+                type='password'
                 error={!!errors.password}
                 helperText={errors.password?.message}
             />

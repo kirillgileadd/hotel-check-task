@@ -35,9 +35,9 @@ const Home: FC = () => {
         <HomeWrapper>
             <HomeNavBar/>
             <HomeContainer>
-                <Grid container spacing={4}>
+                <Grid container spacing={3}>
                     <Grid item xs={4}>
-                        <Grid container spacing={4}>
+                        <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <HotelForm date={date} location={location} daysQuantity={daysQuantity}/>
                             </Grid>
