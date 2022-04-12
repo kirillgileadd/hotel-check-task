@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import {CustomPaper} from "../UI/CustomPaper";
 import {Box, styled, ToggleButtonGroup, Typography} from "@mui/material";
 import {CustomToggleButton} from "../UI/CustomToggleButton";
+import {useTypeSelector} from "../hooks/useTypeSelector";
+import HotelItem from "./HotelItem";
 
 const FavoritesTitle = styled(Typography)`
   font-weight: 500;
@@ -9,7 +11,26 @@ const FavoritesTitle = styled(Typography)`
   line-height: 28px;
 `
 
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+const FavouriteListInner = styled(Box)`
+  height: calc(100vh - 650px);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #41522E;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #E7E7E7;
+  }
+`
+
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
+    marginBottom: "32px",
     '& .MuiToggleButtonGroup-grouped': {
         backgroundColor: 'transparent',
         opacity: 0.4,
@@ -31,8 +52,9 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     },
 }));
 
-const FavoritesBlock:FC = () => {
+const FavoritesBlock: FC = () => {
     const [alignment, setAlignment] = React.useState<string | null>('rating');
+    const {favourites} = useTypeSelector(state => state.hotel)
 
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
@@ -59,6 +81,9 @@ const FavoritesBlock:FC = () => {
                     <CustomToggleButton value={"price"}>Цена</CustomToggleButton>
                 </StyledToggleButtonGroup>
             </Box>
+            <FavouriteListInner>
+                {favourites.map(hotel => <HotelItem key={hotel.hotelId} {...hotel}/>)}
+            </FavouriteListInner>
         </CustomPaper>
     );
 };

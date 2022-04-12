@@ -8,5 +8,7 @@ export interface IHotel {
     location: ILocation;
     stars: number;
     hotelName: string;
-    priceAvg: number
+    priceAvg: number,
+    favourite?: boolean,
+    noImg?: boolean
 }

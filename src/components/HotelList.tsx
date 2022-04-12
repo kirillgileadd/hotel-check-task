@@ -14,7 +14,7 @@ const HotelList: FC<HotelListProps> = ({hotels, isLoading}) => {
         !isLoading && hotels.length
             ?
             <Box>
-                {hotels.map(hotel =>
+                {hotels.map((hotel, index) =>
                     <HotelItem key={hotel.hotelId} {...hotel}/>
                 )}
             </Box>

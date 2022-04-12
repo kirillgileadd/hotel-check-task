@@ -1,6 +1,7 @@
 import {SearchFormValue} from "../../components/HotelForm";
 import {
-    ClearHotelsData,
+    AddToFavouritesAction,
+    ClearHotelsData, DeleteFromFavouritesAction,
     FetchHotelsAction,
     FetchHotelsErrorAction,
     FetchHotelsSuccessAction,
@@ -23,5 +24,13 @@ export const HotelActionCreators = {
     }),
     clearHotelsData: (): ClearHotelsData => ({
         type: HotelActionEnum.CLEAR_HOTELS_DATA,
+    }),
+    addToFavourites: (item: IHotel): AddToFavouritesAction => ({
+        type: HotelActionEnum.ADD_TO_FAVOURITES,
+        payload: item
+    }),
+    deleteFromFavourites: (item: IHotel): DeleteFromFavouritesAction => ({
+        type: HotelActionEnum.DELETE_FROM_FAVOURITES,
+        payload: item
     })
 }

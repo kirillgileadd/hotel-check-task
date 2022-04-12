@@ -3,5 +3,5 @@ import {HotelActionCreators} from "./hotel";
 
 export const allActionCreators = {
     ...AuthActionCreators,
-    ...HotelActionCreators
+    ...HotelActionCreators,
 }

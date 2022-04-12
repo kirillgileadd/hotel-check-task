@@ -52,9 +52,10 @@ const HotelListInner = styled(Box)`
 interface HotelBlockProps {
     hotelState: HotelState;
     currentDate: string;
+    favouritesQuantity: number;
 }
 
-const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, isLoading, location}, currentDate}) => {
+const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, isLoading, location}, currentDate, favouritesQuantity}) => {
     return (
         <CustomPaper>
             <Box
@@ -79,7 +80,7 @@ const HotelBlock: FC<HotelBlockProps> = ({hotelState: {hotels, isLoading, locati
                 <ImagesCarousel/>
             </Box>
             <Typography sx={{mb: "12px"}}>
-                Добавлено в Избранное: <strong>3</strong> отеля
+                Добавлено в Избранное: <strong>{favouritesQuantity}</strong> отеля
             </Typography>
             <HotelListInner>
                 {isLoading ? <Loader/> : <HotelList isLoading={isLoading} hotels={hotels}/>}

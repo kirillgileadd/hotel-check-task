@@ -23,9 +23,10 @@ const HomeContainer = styled(Box)`
 
 const Home: FC = () => {
     const hotelState = useTypeSelector(state => state.hotel)
-    const {date, location, daysQuantity} = useTypeSelector(state => state.hotel)
+    const {date, location, daysQuantity, favourites} = useTypeSelector(state => state.hotel)
     const {fetchHotels} = useActions()
     const [currentDate] = useDate(date, daysQuantity)
+    const favouritesQuantity = favourites.length
 
     useEffect(() => {
         fetchHotels({date, location, daysQuantity})
@@ -47,7 +48,7 @@ const Home: FC = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        <HotelBlock currentDate={currentDate} hotelState={hotelState}/>
+                        <HotelBlock favouritesQuantity={favouritesQuantity} currentDate={currentDate} hotelState={hotelState}/>
                     </Grid>
                 </Grid>
             </HomeContainer>

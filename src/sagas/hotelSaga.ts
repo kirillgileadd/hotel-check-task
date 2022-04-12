@@ -12,12 +12,10 @@ function* fetchHotels(value: FetchHotelsAction) {
         const currentDate = dayjs(date)
         const checkIn = currentDate.format('YYYY-MM-DD')
         const checkOut = currentDate.add(daysQuantity, "day").format('YYYY-MM-DD')
-        console.log(checkIn, checkOut);
         //@ts-ignore
         const response = yield call(
             axios,
             `http://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&&language=ru&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
-        console.log(response);
         yield put(HotelActionCreators.fetchHotelsSuccess(response.data))
     } catch (e) {
         yield put(HotelActionCreators.clearHotelsData())
