@@ -1,4 +1,4 @@
-import {SearchFormValue} from "../../components/HotelForm";
+import {FetchHotelsProps} from "../../components/HotelForm";
 import {
     AddToFavouritesAction,
     ClearHotelsData, DeleteFromFavouritesAction,
@@ -10,7 +10,7 @@ import {
 import {IHotel} from "../../types/IHotel";
 
 export const HotelActionCreators = {
-    fetchHotels: (value: SearchFormValue): FetchHotelsAction => ({
+    fetchHotels: (value: FetchHotelsProps): FetchHotelsAction => ({
         type: HotelActionEnum.FETCH_HOTELS,
         payload: value
     }),

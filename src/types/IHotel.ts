@@ -11,4 +11,6 @@ export interface IHotel {
     priceAvg: number,
     favourite?: boolean,
     noImg?: boolean
+    checkIn?: Date;
+    daysQuantity: number;
 }

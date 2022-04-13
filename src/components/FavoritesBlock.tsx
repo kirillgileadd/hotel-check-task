@@ -52,6 +52,8 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
     },
 }));
 
+
+
 const FavoritesBlock: FC = () => {
     const [alignment, setAlignment] = React.useState<string | null>('rating');
     const {favourites} = useTypeSelector(state => state.hotel)
@@ -82,7 +84,11 @@ const FavoritesBlock: FC = () => {
                 </StyledToggleButtonGroup>
             </Box>
             <FavouriteListInner>
-                {favourites.map(hotel => <HotelItem key={hotel.hotelId} {...hotel}/>)}
+                {favourites.length ?
+                    favourites.map(hotel => <HotelItem key={hotel.hotelId} {...hotel}/>)
+                    :
+                    <Typography>Список избранного пуст</Typography>
+                }
             </FavouriteListInner>
         </CustomPaper>
     );

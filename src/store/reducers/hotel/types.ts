@@ -1,6 +1,6 @@
 import {IHotel} from "../../../types/IHotel";
 import {ICarouselItem} from "../../../types/ICarouselItem";
-import {SearchFormValue} from "../../../components/HotelForm";
+import {FetchHotelsProps} from "../../../components/HotelForm";
 
 export interface HotelState {
     hotels: IHotel[];
@@ -34,7 +34,7 @@ export interface DeleteFromFavouritesAction {
 
 export interface FetchHotelsAction {
     type: HotelActionEnum.FETCH_HOTELS,
-    payload: SearchFormValue
+    payload: FetchHotelsProps
 }
 
 export interface FetchHotelsSuccessAction {

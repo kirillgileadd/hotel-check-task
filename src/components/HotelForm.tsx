@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {Box, TextField} from "@mui/material";
 import {CustomButton} from "../UI/CustomButton";
-import {IUser} from "../types/IUser";
+import ruLocale from 'date-fns/locale/ru';
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -10,24 +10,29 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 import {useActions} from "../hooks/useActions";
+import {IHotel} from "../types/IHotel";
+import {useTypeSelector} from "../hooks/useTypeSelector";
 
-export interface SearchFormValue {
+export interface FetchHotelsProps {
     location: string;
     date: Date;
     daysQuantity: number;
+    favourites: IHotel[]
 }
 
-const HotelForm: FC<SearchFormValue> = ({date, daysQuantity, location}) => {
+const HotelForm: FC<FetchHotelsProps> = ({date, daysQuantity, location}) => {
+    const {favourites} = useTypeSelector(state => state.hotel)
     const {fetchHotels} = useActions()
 
     const schema = yup.object({
         location: yup.string().required('Введите локацию'),
-        date: yup.date().min(date, 'Пожалуйста, выберите предстоящую дату'),
+        date: yup.date(),
+            // .min( date = new Date.now() , 'Пожалуйста, выберите предстоящую дату'),
         daysQuantity: yup.number().max(365, "Количество дней должно быть меньше (макс 365)")
             .required("Выберете количество дней")
     });
 
-    const {register, control, handleSubmit, formState: {errors}} = useForm<SearchFormValue>({
+    const {register, control, handleSubmit, formState: {errors}} = useForm<FetchHotelsProps>({
         resolver: yupResolver(schema),
         defaultValues: {
             location,
@@ -36,8 +41,12 @@ const HotelForm: FC<SearchFormValue> = ({date, daysQuantity, location}) => {
         }
     });
 
-    const onSubmit: SubmitHandler<SearchFormValue> = (data) => {
-        fetchHotels(data)
+    const onSubmit: SubmitHandler<FetchHotelsProps> = (data) => {
+        let newData: FetchHotelsProps = {
+            ...data,
+            favourites
+        }
+        fetchHotels(newData)
     }
 
     return (
@@ -60,14 +69,14 @@ const HotelForm: FC<SearchFormValue> = ({date, daysQuantity, location}) => {
                     helperText={errors.location?.message}
                 />
                 <Box>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
                         <Controller
                             name="date"
                             control={control}
                             render={({field}) => <DesktopDatePicker
                                 {...field}
                                 label="Дата заселения"
-                                inputFormat="MM/dd/yyyy"
+                                inputFormat="MM.dd.yyyy"
                                 renderInput={(params) =>
                                     <TextField
                                         fullWidth

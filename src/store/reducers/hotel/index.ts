@@ -50,12 +50,7 @@ export default function hotelReducer(state = initialState, action: HotelAction):
         case HotelActionEnum.FETCH_HOTELS_SUCCESS:
             return {
                 ...state,
-                hotels: action.payload.map((hotel) => {
-                    return {
-                        ...hotel,
-                        favourite: false
-                    }
-                }),
+                hotels: action.payload,
                 isLoading: false,
             }
         case HotelActionEnum.ADD_TO_FAVOURITES:
