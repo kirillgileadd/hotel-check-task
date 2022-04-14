@@ -4,6 +4,7 @@ import {Box, styled, ToggleButtonGroup, Typography} from "@mui/material";
 import {CustomToggleButton} from "../UI/CustomToggleButton";
 import {useTypeSelector} from "../hooks/useTypeSelector";
 import HotelItem from "./HotelItem";
+import {useSortedItems} from "../hooks/useSort";
 
 const FavoritesTitle = styled(Typography)`
   font-weight: 500;
@@ -53,14 +54,14 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
 }));
 
 
-
 const FavoritesBlock: FC = () => {
-    const [alignment, setAlignment] = React.useState<string | null>('rating');
+    const [alignment, setAlignment] = React.useState<'priceAvg' | 'stars'>('stars');
     const {favourites} = useTypeSelector(state => state.hotel)
+    const [sortedFavouritesItems] = useSortedItems(favourites, alignment)
 
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
-        newAlignment: string | null,
+        newAlignment: 'priceAvg' | 'stars',
     ) => {
         if (newAlignment !== null) {
             setAlignment(newAlignment);
@@ -79,13 +80,13 @@ const FavoritesBlock: FC = () => {
                     exclusive
                     onChange={handleChange}
                 >
-                    <CustomToggleButton sx={{mr: 1}} value={"rating"}>Рейтинг</CustomToggleButton>
-                    <CustomToggleButton value={"price"}>Цена</CustomToggleButton>
+                    <CustomToggleButton sx={{mr: 1}} value={"stars"}>Рейтинг</CustomToggleButton>
+                    <CustomToggleButton value={"priceAvg"}>Цена</CustomToggleButton>
                 </StyledToggleButtonGroup>
             </Box>
             <FavouriteListInner>
                 {favourites.length ?
-                    favourites.map(hotel => <HotelItem key={hotel.hotelId} {...hotel}/>)
+                    sortedFavouritesItems.map(hotel => <HotelItem key={hotel.hotelId} {...hotel}/>)
                     :
                     <Typography>Список избранного пуст</Typography>
                 }

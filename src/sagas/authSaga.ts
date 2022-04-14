@@ -1,14 +1,14 @@
-import {call, put, takeEvery} from "redux-saga/effects"
+import {call, put, takeEvery, StrictEffect} from "redux-saga/effects"
 import {AuthActionEnum, LoginAction} from "../store/reducers/auth/types";
 import {AuthActionCreators} from "../store/action-creators/auth";
 import UserService from "../api/UserService";
 import {IUser} from "../types/IUser";
+import {AxiosResponse} from "axios";
 
-function* login(action: LoginAction) {
+function* login(action: LoginAction): Generator<StrictEffect, void, AxiosResponse<IUser[]>> {
     try {
         const {payload: {email, password}} = action
         yield put(AuthActionCreators.setIsLoading(true))
-        // @ts-ignore
         const response = yield call(UserService.getUsers)
         const mockUser = response.data.find((user: IUser) => user.email === email && user.password === password)
         if(mockUser) {
@@ -31,7 +31,6 @@ function* logout() {
 }
 
 export function* authWatcher() {
-    //@ts-ignore
     yield takeEvery(AuthActionEnum.LOGIN, login)
     yield takeEvery(AuthActionEnum.LOGOUT, logout)
 }

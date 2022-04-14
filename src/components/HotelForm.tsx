@@ -20,17 +20,17 @@ export interface FetchHotelsProps {
     favourites: IHotel[]
 }
 
+const schema = yup.object({
+    location: yup.string().required('Введите локацию'),
+    date: yup.date(),
+    // .min( date = new Date.now() , 'Пожалуйста, выберите предстоящую дату'),
+    daysQuantity: yup.number().max(365, "Количество дней должно быть меньше (макс 365)")
+        .required("Выберете количество дней")
+});
+
 const HotelForm: FC<FetchHotelsProps> = ({date, daysQuantity, location}) => {
     const {favourites} = useTypeSelector(state => state.hotel)
     const {fetchHotels} = useActions()
-
-    const schema = yup.object({
-        location: yup.string().required('Введите локацию'),
-        date: yup.date(),
-            // .min( date = new Date.now() , 'Пожалуйста, выберите предстоящую дату'),
-        daysQuantity: yup.number().max(365, "Количество дней должно быть меньше (макс 365)")
-            .required("Выберете количество дней")
-    });
 
     const {register, control, handleSubmit, formState: {errors}} = useForm<FetchHotelsProps>({
         resolver: yupResolver(schema),

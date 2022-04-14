@@ -3,14 +3,14 @@ export interface ILocation {
     name: string
 }
 
-export interface IHotel {
-    hotelId: number;
-    location: ILocation;
-    stars: number;
-    hotelName: string;
-    priceAvg: number,
-    favourite?: boolean,
-    noImg?: boolean
-    checkIn?: Date;
+export interface IHotel{
+    priceAvg: number;
     daysQuantity: number;
+    noImg ? : boolean;
+    checkIn: string;
+    location: ILocation;
+    hotelId: number;
+    stars: number;
+    favourite: boolean;
+    hotelName: string
 }

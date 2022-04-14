@@ -6,4 +6,7 @@ export const CustomPaper = styled(Paper)`
   box-shadow: 0px 4px 33px rgba(0, 0, 0, 0.04);
   border-radius: 16px;
   padding: 32px;
+  @media(max-width: 600px) {
+    padding: 16px;
+  }
 `

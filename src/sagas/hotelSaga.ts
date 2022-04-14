@@ -1,11 +1,11 @@
-import {call, put, takeEvery} from "redux-saga/effects";
+import {call, put, StrictEffect, takeEvery} from "redux-saga/effects";
 import {FetchHotelsAction, HotelActionEnum} from "../store/reducers/hotel/types";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import dayjs from "dayjs";
 import {HotelActionCreators} from "../store/action-creators/hotel";
 import {IHotel} from "../types/IHotel";
 
-const createHotelWrapper = (hotels: any, checkIn: string, daysQuantity: number) => {
+const createHotelWrapper = (hotels: AxiosResponse<IHotel[]>, checkIn: string, daysQuantity: number) => {
     return hotels.data.map((hotel: IHotel) => {
             return {
                 ...hotel,
@@ -15,7 +15,7 @@ const createHotelWrapper = (hotels: any, checkIn: string, daysQuantity: number) 
             }
     })
 }
-const checkingForFavorites = (hotels: IHotel[], favourites: IHotel[]) => {
+const checkingForFavorites = (hotels: Array<IHotel>, favourites: IHotel[]) => {
     const currentHotels = hotels.map((item: IHotel) => {
         const favouriteItem = favourites.find((favourite: any) => favourite?.hotelId === item.hotelId)
         let idCheck = item.hotelId === favouriteItem?.hotelId
@@ -38,21 +38,20 @@ const checkingForFavorites = (hotels: IHotel[], favourites: IHotel[]) => {
 }
 
 
-function* fetchHotels(value: FetchHotelsAction) {
+function* fetchHotels(value: FetchHotelsAction): Generator<StrictEffect, void, AxiosResponse<IHotel[]>> {
     const {payload: {date, location, daysQuantity, favourites}} = value
     try {
         const currentDate = dayjs(date)
         const checkIn = currentDate.format('YYYY-MM-DD')
         const checkOut = currentDate.add(daysQuantity, "day").format('YYYY-MM-DD')
-        // @ts-ignore
         const response = yield call(
             axios,
             `http://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&&language=ru&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
 
         const hotelsWithWrapper = createHotelWrapper(response, checkIn, daysQuantity)
-        const a = checkingForFavorites(hotelsWithWrapper, favourites)
-        console.log(a);
-        yield put(HotelActionCreators.fetchHotelsSuccess(a))
+        console.log(hotelsWithWrapper);
+        const currentHotels = checkingForFavorites(hotelsWithWrapper, favourites)
+        yield put(HotelActionCreators.fetchHotelsSuccess(currentHotels))
 
     } catch (e) {
         yield put(HotelActionCreators.clearHotelsData())

@@ -32,4 +32,13 @@ export const theme = createTheme({
             main: '#A6A6A6'
         }
     },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 1000,
+            lg: 1200,
+            xl: 1536,
+        }
+    }
 });

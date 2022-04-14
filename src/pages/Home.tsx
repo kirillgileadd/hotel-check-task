@@ -11,15 +11,20 @@ import {useDate} from "../hooks/useDate";
 
 const HomeWrapper = styled(Box)`
   background-color: #f4f4f4;
-  //width: 100vw;
   min-height: calc(100vh - 64px);
   padding: 32px;
+  @media (max-width: 600px) {
+    padding: 0;
+  }
 `
 
 const HomeContainer = styled(Box)`
   max-width: 1078px;
   padding: 0 15px;
   margin: auto;
+  @media (max-width: 600px) {
+    padding: 0 5px;;
+  }
 `
 
 const Home: FC = () => {
@@ -37,9 +42,9 @@ const Home: FC = () => {
         <HomeWrapper>
             <HomeNavBar/>
             <HomeContainer>
-                <Grid container spacing={3}>
-                    <Grid item xs={4}>
-                        <Grid container spacing={3}>
+                <Grid container spacing={{ xs: 1, md: 3 }}>
+                    <Grid item xs={12} md={4}>
+                        <Grid container spacing={{ xs: 1, md: 3 }}>
                             <Grid item xs={12}>
                                 <HotelForm
                                     date={date}
@@ -53,7 +58,7 @@ const Home: FC = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={8}>
                         <HotelBlock
                             favouritesQuantity={favouritesQuantity}
                             currentDate={currentDate}

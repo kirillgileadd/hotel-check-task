@@ -14,6 +14,9 @@ const BreadcrumbsItem = styled(Typography)`
   line-height: 38px;
   position: relative;
   padding-right: 52px;
+  @media (max-width: 600px) {
+    font-size: 22px;
+  }
 
   &:last-child {
     &:after {
@@ -78,7 +81,7 @@ const HotelBlock: FC<HotelBlockProps> =
                     alignItems='center'
                     justifyContent='space-between'
                 >
-                    <Box display='flex'>
+                    <Box display='flex' flexWrap='wrap'>
                         <BreadcrumbsItem variant='h4'>
                             Отели
                         </BreadcrumbsItem>
