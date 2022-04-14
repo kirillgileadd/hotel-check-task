@@ -45,7 +45,7 @@ function* fetchHotels(value: FetchHotelsAction): Generator<StrictEffect, void, A
         const checkOut = currentDate.add(daysQuantity, "day").format('YYYY-MM-DD')
         const response = yield call(
             axios,
-            `http://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&&language=ru&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
+            `https://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&&language=ru&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
 
         const hotelsWithWrapper = createHotelWrapper(response, checkIn, daysQuantity)
         const currentHotels = checkingForFavorites(hotelsWithWrapper, favourites)
