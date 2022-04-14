@@ -57,7 +57,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
 const FavoritesBlock: FC = () => {
     const [alignment, setAlignment] = React.useState<'priceAvg' | 'stars'>('stars');
     const {favourites} = useTypeSelector(state => state.hotel)
-    const [sortedFavouritesItems] = useSortedItems(favourites, alignment)
+    const sortedFavouritesItems = useSortedItems(favourites, alignment)
 
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
@@ -85,8 +85,8 @@ const FavoritesBlock: FC = () => {
                 </StyledToggleButtonGroup>
             </Box>
             <FavouriteListInner>
-                {favourites.length ?
-                    sortedFavouritesItems.map(hotel => <HotelItem key={hotel.hotelId} {...hotel}/>)
+                {sortedFavouritesItems.length ?
+                    sortedFavouritesItems.map(hotel => <HotelItem key={`${hotel.hotelId} + ${hotel.priceAvg}`} {...hotel}/>)
                     :
                     <Typography>Список избранного пуст</Typography>
                 }

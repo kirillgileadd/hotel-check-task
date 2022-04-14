@@ -1,7 +1,7 @@
 import {IHotel} from "../types/IHotel";
 import {useMemo} from "react";
 
-export const useSortedItems = (favourites: IHotel[], sort: 'stars' | 'priceAvg'): Array<IHotel[]> => {
+export const useSortedItems = (favourites: IHotel[], sort: 'stars' | 'priceAvg'): IHotel[] => {
     const sortedItems = useMemo(() => {
         if(sort) {
             return favourites.sort((a, b) => a[sort] > b[sort] ? -1 : 1)
@@ -9,5 +9,5 @@ export const useSortedItems = (favourites: IHotel[], sort: 'stars' | 'priceAvg')
         return favourites;
     }, [sort, favourites])
 
-    return [sortedItems];
+    return sortedItems;
 }
