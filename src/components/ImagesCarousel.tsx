@@ -37,9 +37,6 @@ const ImagesCarousel: FC = () => {
                     },
                     1000: {
                         slidesPerView: 3.3,
-                    },
-                    1200: {
-                        slidesPerView: 4.65,
                     }
                 }}
             >

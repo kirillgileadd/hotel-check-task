@@ -14,6 +14,16 @@ const HotelItemWrapper = styled(Box)`
   display: flex;
   justify-content: flex-start;
   border-bottom: 1px solid rgba(135, 135, 135, 0.2);
+  
+  .homeSvg {
+    margin-right: 24px;
+  }
+  
+  @media(max-width: 350px) {
+    .homeSvg {
+      display: none;
+    }
+  }
 `
 
 const FavourButton = styled("img")`
@@ -68,7 +78,7 @@ const HotelItem: FC<IHotel> =
         return (
             <HotelItemWrapper>
                 {!noImg &&
-                    <svg style={{marginRight: "24px"}} width="64" height="64" viewBox="0 0 64 64" fill="none"
+                    <svg className='homeSvg' width="64" height="64" viewBox="0 0 64 64" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <circle cx="32" cy="32" r="32" fill="#41522E" fillOpacity="0.05"/>
                         <g clipPath="url(#clip0_2219_157)">

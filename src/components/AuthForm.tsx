@@ -29,7 +29,7 @@ const AuthForm: FC<AuthFormProps> = ({loginAction}) => {
     const {error, isLoading} = useTypeSelector(state => state.auth)
     const {setError} = useActions()
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<IUser>({
+    const {register, handleSubmit, formState: {errors}} = useForm<IUser>({
         resolver: yupResolver(schema)
     });
 
@@ -46,7 +46,7 @@ const AuthForm: FC<AuthFormProps> = ({loginAction}) => {
     return (
         <Box
             sx={{
-                width: '409px',
+                width: {xs: '280px', md: '409px'},
                 position: "relative",
                 '& .MuiTypography-root': {mb: "28px"},
             }}

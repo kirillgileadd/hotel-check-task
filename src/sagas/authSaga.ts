@@ -11,10 +11,10 @@ function* login(action: LoginAction): Generator<StrictEffect, void, AxiosRespons
         yield put(AuthActionCreators.setIsLoading(true))
         const response = yield call(UserService.getUsers)
         const mockUser = response.data.find((user: IUser) => user.email === email && user.password === password)
-        if(mockUser) {
+        if (mockUser) {
             localStorage.setItem('auth', 'true')
             localStorage.setItem('email', email);
-            yield put(AuthActionCreators.setUser( {email: email, password: password}))
+            yield put(AuthActionCreators.setUser({email: email, password: password}))
             yield put(AuthActionCreators.setIsAuth(true))
         } else {
             yield put(AuthActionCreators.setError('Неправильный логин или пароль!'))

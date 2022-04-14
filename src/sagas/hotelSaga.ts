@@ -7,12 +7,12 @@ import {IHotel} from "../types/IHotel";
 
 const createHotelWrapper = (hotels: AxiosResponse<IHotel[]>, checkIn: string, daysQuantity: number) => {
     return hotels.data.map((hotel: IHotel) => {
-            return {
-                ...hotel,
-                checkIn,
-                daysQuantity,
-                favourite: false
-            }
+        return {
+            ...hotel,
+            checkIn,
+            daysQuantity,
+            favourite: false
+        }
     })
 }
 const checkingForFavorites = (hotels: Array<IHotel>, favourites: IHotel[]) => {
@@ -21,7 +21,7 @@ const checkingForFavorites = (hotels: Array<IHotel>, favourites: IHotel[]) => {
         let idCheck = item.hotelId === favouriteItem?.hotelId
         let daysQuantityCheck = item.checkIn === favouriteItem?.checkIn
         let checkInCheck = item.daysQuantity === favouriteItem?.daysQuantity
-        if(idCheck && daysQuantityCheck && checkInCheck) {
+        if (idCheck && daysQuantityCheck && checkInCheck) {
             return {
                 ...item,
                 favourite: true
@@ -32,7 +32,6 @@ const checkingForFavorites = (hotels: Array<IHotel>, favourites: IHotel[]) => {
                 favourite: false
             }
         }
-
     })
     return currentHotels
 }
@@ -49,7 +48,6 @@ function* fetchHotels(value: FetchHotelsAction): Generator<StrictEffect, void, A
             `http://engine.hotellook.com/api/v2/cache.json?location=${location}&currency=rub&&language=ru&checkIn=${checkIn}&checkOut=${checkOut}&limit=10`)
 
         const hotelsWithWrapper = createHotelWrapper(response, checkIn, daysQuantity)
-        console.log(hotelsWithWrapper);
         const currentHotels = checkingForFavorites(hotelsWithWrapper, favourites)
         yield put(HotelActionCreators.fetchHotelsSuccess(currentHotels))
 

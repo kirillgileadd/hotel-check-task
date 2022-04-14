@@ -27,7 +27,7 @@ const initialState: HotelState = {
 
 const changeFavourValue = (hotels: IHotel[], hotel: IHotel) => {
     return hotels.map(item => {
-        if(item.hotelId === hotel.hotelId) {
+        if (item.hotelId === hotel.hotelId) {
             return {
                 ...item,
                 favourite: hotel.favourite

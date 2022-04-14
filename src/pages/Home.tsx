@@ -1,7 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import HomeNavBar from "../components/HomeNavBar";
 import {Box, Grid, styled} from "@mui/material";
-import {CustomPaper} from "../UI/CustomPaper";
 import HotelBlock from "../components/HotelBlock";
 import HotelForm from "../components/HotelForm";
 import {useActions} from "../hooks/useActions";
@@ -11,10 +10,10 @@ import {useDate} from "../hooks/useDate";
 
 const HomeWrapper = styled(Box)`
   background-color: #f4f4f4;
-  min-height: calc(100vh - 64px);
+  min-height: 100vh;
   padding: 32px;
   @media (max-width: 600px) {
-    padding: 0;
+    padding: 5px 0;
   }
 `
 
@@ -53,17 +52,24 @@ const Home: FC = () => {
                                     favourites={favourites}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sx={{display: {xs: 'none', md: 'block'}}}>
                                 <FavoritesBlock/>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} md={8}>
-                        <HotelBlock
-                            favouritesQuantity={favouritesQuantity}
-                            currentDate={currentDate}
-                            hotelState={hotelState}
-                        />
+                    <Grid item xs={12} md={8} >
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <HotelBlock
+                                    favouritesQuantity={favouritesQuantity}
+                                    currentDate={currentDate}
+                                    hotelState={hotelState}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sx={{display: {xs: 'block', md: 'none'}}}>
+                                <FavoritesBlock/>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </HomeContainer>

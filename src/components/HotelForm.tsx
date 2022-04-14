@@ -12,6 +12,8 @@ import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 import {useActions} from "../hooks/useActions";
 import {IHotel} from "../types/IHotel";
 import {useTypeSelector} from "../hooks/useTypeSelector";
+import {useDate} from "../hooks/useDate";
+import dayjs from "dayjs";
 
 export interface FetchHotelsProps {
     location: string;
@@ -31,6 +33,7 @@ const schema = yup.object({
 const HotelForm: FC<FetchHotelsProps> = ({date, daysQuantity, location}) => {
     const {favourites} = useTypeSelector(state => state.hotel)
     const {fetchHotels} = useActions()
+    const currentDate = dayjs(date).format('YYYY-MM-DD')
 
     const {register, control, handleSubmit, formState: {errors}} = useForm<FetchHotelsProps>({
         resolver: yupResolver(schema),
@@ -77,6 +80,7 @@ const HotelForm: FC<FetchHotelsProps> = ({date, daysQuantity, location}) => {
                                 {...field}
                                 label="Дата заселения"
                                 inputFormat="MM.dd.yyyy"
+                                minDate={new Date(currentDate)}
                                 renderInput={(params) =>
                                     <TextField
                                         fullWidth
