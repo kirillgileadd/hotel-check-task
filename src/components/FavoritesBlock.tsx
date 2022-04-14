@@ -12,7 +12,7 @@ const FavoritesTitle = styled(Typography)`
 `
 
 const FavouriteListInner = styled(Box)`
-  height: calc(100vh - 650px);
+  height: 347px;
   overflow-y: auto;
 
   &::-webkit-scrollbar {

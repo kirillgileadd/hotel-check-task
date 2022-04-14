@@ -11,8 +11,9 @@ import {useDate} from "../hooks/useDate";
 
 const HomeWrapper = styled(Box)`
   background-color: #f4f4f4;
-  width: 100vw;
-  height: 100vh;
+  //width: 100vw;
+  min-height: calc(100vh - 64px);
+  padding: 32px;
 `
 
 const HomeContainer = styled(Box)`

@@ -6,7 +6,7 @@ import {useActions} from "../hooks/useActions";
 const HomeNavBar:FC = () => {
     const {logoutAction} = useActions()
     return (
-        <Box display='flex' sx={{p: '16px 32px'}}>
+        <Box display='flex' sx={{pb: '32px'}}>
             <Typography variant='h5' fontWeight='500'>
                 Simple Hotel Check
             </Typography>
